@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0b0e14" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Elegoo CC2" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icon.svg" />
+  <link rel="icon" type="image/svg+xml" href="icon.svg" />
+  <link rel="icon" type="image/x-icon" href="app.ico" />
+  <title>&#8203;</title>
+  <style>
+    .hidden { display: none !important; }
+    html, body { background: #0b0e14; margin: 0; padding: 0; color: #f1f5f9; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .boot-splash {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: radial-gradient(circle at 50% 35%, rgba(0, 210, 255, 0.12), transparent 55%), #0b0e14;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+      transition: opacity 0.28s ease;
+    }
+    .boot-splash.fade-out { opacity: 0; pointer-events: none; }
+    .boot-splash-content { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; padding: 24px; }
+    .boot-splash-logo { width: 64px; height: 64px; }
+    .boot-splash-title { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.02em; margin: 0; color: #f8fafc; }
+    .boot-splash-loader { width: 160px; height: 3px; border-radius: 999px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }
+    .boot-splash-bar { width: 45%; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #00d2ff, #38bdf8); animation: bootLoad 1.1s ease-in-out infinite; }
+    @keyframes bootLoad {
+      0% { transform: translateX(-110%); }
+      50% { transform: translateX(120%); }
+      100% { transform: translateX(240%); }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="boot-splash" class="boot-splash">
+    <div class="boot-splash-content">
+      <div class="boot-splash-logo">
+        <svg viewBox="0 0 48 48" fill="none">
+          <polygon points="24,3 43,14 43,34 24,45 5,34 5,14" stroke="#00d2ff" stroke-width="3" fill="rgba(0, 210, 255, 0.08)" />
+          <circle cx="24" cy="24" r="9" stroke="#00d2ff" stroke-width="2.5" />
+          <circle cx="24" cy="24" r="3.5" fill="#00d2ff" />
+        </svg>
+      </div>
+      <h1 class="boot-splash-title">Your Filament Manager</h1>
+      <div class="boot-splash-loader">
+        <div class="boot-splash-bar"></div>
+      </div>
+    </div>
+  </div>
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- ===================================================================== -->
+  <!-- LOGIN VIEW                                                            -->
+  <!-- ===================================================================== -->
+  <section id="login-view" class="login-view hidden">
+    <div class="login-card">
+      <div class="login-brand">
+        <div class="brand-logo-hex">
+          <svg viewBox="0 0 48 48" fill="none">
+            <polygon points="24,3 43,14 43,34 24,45 5,34 5,14" stroke="#00d2ff" stroke-width="3" fill="rgba(0, 210, 255, 0.08)" />
+            <circle cx="24" cy="24" r="9" stroke="#00d2ff" stroke-width="2.5" />
+            <circle cx="24" cy="24" r="3.5" fill="#00d2ff" />
+          </svg>
+        </div>
+        <div class="login-brand-text">
+          <span class="brand-tag">ELEGOO CLOUD</span>
+          <h1>Centauri Carbon 2</h1>
+          <p data-i18n="brandSubtitle">Canvas &amp; Bobine</p>
+        </div>
+        <button type="button" id="btn-lang-toggle-login" class="btn btn-glass btn-xs lang-toggle-btn" title="Switch language / Cambia lingua">🌐 IT</button>
+      </div>
+
+      <div id="web-qr-only-notice" class="hidden">
+        <div class="slicer-status-box">
+          <strong data-i18n="webQrTitle">🔒 Accesso esclusivo tramite QR Code da PC</strong>
+          <p data-i18n="webQrDesc">
+            Questa Web App è protetta: conoscere l'indirizzo web non consente l'accesso né il login manuale con email o password.
+          </p>
+        </div>
+        <div class="slicer-status-box" style="background: rgba(255, 255, 255, 0.03); border-color: rgba(255, 255, 255, 0.12);">
+          <strong style="color: var(--text-main);" data-i18n="webQrStepsTitle">Come collegare il telefono:</strong>
+          <p style="margin-top: 4px;" data-i18n-html="webQrStep1">1. Apri <strong>Elegoo Filament App</strong> sul tuo PC Windows.</p>
+          <p style="margin-top: 4px;" data-i18n-html="webQrStep2">2. Clicca su <strong>📱 Collega Telefono</strong> in alto a destra.</p>
+          <p style="margin-top: 4px;" data-i18n-html="webQrStep3">3. Inquadra il <strong>Codice QR</strong> con la fotocamera del telefono per accedere automaticamente.</p>
+        </div>
+        <div id="web-qr-error-msg" class="login-error-box hidden"></div>
+      </div>
+
+      <div class="login-tabs">
+        <button type="button" class="login-tab active" data-tab="slicer" id="tab-btn-slicer" data-i18n="tabSlicer">⚡ Elegoo Slicer</button>
+        <button type="button" class="login-tab" data-tab="credentials" data-i18n="tabCredentials">Email e Password</button>
+        <button type="button" class="login-tab" data-tab="token" data-i18n="tabToken">Token Cloud</button>
+      </div>
+
+      <div id="login-region-group" class="form-group hidden">
+        <label for="login-region" data-i18n="labelRegion">Regione Server</label>
+        <select id="login-region">
+          <option value="intl" data-i18n="regionIntl">🌍 Europa / Internazionale (matrix.elegoo.com)</option>
+          <option value="cn" data-i18n="regionCn">🇨🇳 Cina (matrix.elegoo.com.cn)</option>
+        </select>
+      </div>
+
+      <div id="login-form-slicer" class="login-form">
+        <div id="slicer-sync-status-box" class="slicer-status-box">
+          <strong id="slicer-sync-title" data-i18n="slicerTitle">Connessione con Elegoo Slicer</strong>
+          <p id="slicer-sync-status-text">
+            Clicca il pulsante qui sotto per aprire Elegoo Slicer ed eseguire l'accesso: questa app importerà il token locale senza chiederti la password e senza disconnettere il programma.
+          </p>
+        </div>
+        <button type="button" id="btn-slicer-force-relogin" class="btn btn-primary btn-block btn-lg">
+          🔄 Avvia Elegoo Slicer e Accedi
+        </button>
+        <button type="button" id="btn-slicer-adopt-current" class="btn btn-glass btn-block btn-lg hidden" style="margin-top:10px" data-i18n="btnAdoptSlicer">
+          ✅ Usa sessione già attiva in Elegoo Slicer
+        </button>
+        <p class="slicer-help-note" data-i18n-html="slicerPrivacyNote">
+          Tutto resta <strong>100% in locale</strong> sul tuo PC: nessun token o password viene inviato all'esterno.
+        </p>
+      </div>
+
+      <form id="login-form-credentials" class="login-form hidden">
+        <div class="form-group">
+          <label for="login-email" data-i18n="labelEmail">Email Account Elegoo</label>
+          <input type="email" id="login-email" placeholder="nome@esempio.com" data-i18n-placeholder="placeholderEmail" autocomplete="username" required />
+        </div>
+        <div class="form-group">
+          <label for="login-password" data-i18n="labelPassword">Password</label>
+          <div class="password-input-wrap">
+            <input type="password" id="login-password" placeholder="••••••••••••" autocomplete="current-password" required />
+            <button type="button" id="toggle-password-btn" class="icon-btn-inline" title="Mostra/Nascondi" data-i18n-title="togglePasswordTitle">👁️</button>
+          </div>
+        </div>
+        <button type="submit" id="btn-login-submit" class="btn btn-primary btn-block btn-lg" data-i18n="btnLoginSubmit">
+          Accedi a Elegoo Cloud
+        </button>
+      </form>
+
+      <form id="login-form-token" class="login-form hidden">
+        <div class="form-group">
+          <label for="login-token-input" data-i18n="labelToken">Token di Sessione Elegoo</label>
+          <textarea id="login-token-input" rows="3" placeholder="Incolla il token..." data-i18n-placeholder="placeholderToken"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg" data-i18n="btnTokenSubmit">
+          Accedi con Token
+        </button>
+      </form>
+
+      <div id="login-error-box" class="login-error-box hidden"></div>
+
+      <div class="login-author-footer">
+        <span data-i18n="authorCredit">Creato da</span> <strong>Giulio Cantarelli</strong> •
+        <a href="https://ko-fi.com/giuliocantarelli" target="_blank" rel="noopener noreferrer" data-i18n="btnDonateLink">☕ Ko-fi</a> •
+        <a href="https://makerworld.com/it/@IlCanta96" target="_blank" rel="noopener noreferrer" class="makerworld-link">🧩 MakerWorld</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- MAIN DASHBOARD                                                        -->
+  <!-- ===================================================================== -->
+  <div id="app-view" class="app-view hidden">
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="brand-mini">
+          <div class="brand-dot"></div>
+          <div>
+            <span class="brand-title">CENTAURI <strong>CARBON 2</strong></span>
+            <span id="user-account-label" class="brand-subtitle">Elegoo Cloud</span>
+          </div>
+        </div>
+        <select id="printer-select" class="printer-select hidden" title="Stampante" data-i18n-title="printerSelectTitle"></select>
+      </div>
+
+      <div class="topbar-right">
+        <a href="https://makerworld.com/it/@IlCanta96" target="_blank" rel="noopener noreferrer" id="btn-makerworld" class="btn btn-makerworld btn-sm" title="Modelli 3D di Giulio Cantarelli su MakerWorld" data-i18n-title="btnMakerWorldTitle">
+          🧩 <span class="hide-xs">MakerWorld</span>
+        </a>
+        <a href="https://ko-fi.com/giuliocantarelli" target="_blank" rel="noopener noreferrer" id="btn-donate-kofi" class="btn btn-kofi btn-sm" title="Supporta Giulio Cantarelli su Ko-fi" data-i18n-title="btnDonateTitle">
+          ☕ <span class="hide-xs" data-i18n="btnDonate">Offrimi un caffè</span>
+        </a>
+        <button type="button" id="btn-lang-toggle" class="btn btn-glass btn-sm lang-toggle-btn" title="Cambia lingua / Switch language">🌐 IT</button>
+        <button type="button" id="btn-mobile-qr" class="btn btn-glass btn-sm" title="Collega Smartphone tramite Codice QR" data-i18n-title="btnMobileQrTitle">
+          📱 <span class="hide-xs" data-i18n="btnMobileQr">Collega Telefono</span>
+        </button>
+        <button type="button" id="btn-slicer-resync" class="btn btn-glass btn-sm hidden" title="Ricollega Elegoo Slicer" data-i18n-title="btnSlicerResyncTitle">
+          🔄 <span class="hide-xs" data-i18n="btnSlicerResync">Ricollega Slicer</span>
+        </button>
+        <button type="button" id="btn-logout" class="btn btn-glass btn-danger-hover btn-sm" title="Esci" data-i18n-title="btnLogout">
+          🚪 <span class="hide-xs" data-i18n="btnLogout">Esci</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="main-container">
+      <!-- 1. ELEGOO CANVAS 4 SLOTS -->
+      <section class="panel">
+        <div class="panel-header">
+          <h2 class="panel-title">🎨 Canvas</h2>
+          <span class="panel-hint" id="last-sync-time" data-i18n="statusSynced">Sincronizzato</span>
+        </div>
+
+        <div id="canvas-slots-grid" class="canvas-slots-grid">
+          <!-- Populated dynamically -->
+        </div>
+      </section>
+
+      <!-- 2. ARCHIVIO BOBINE SMONTATE -->
+      <section class="panel">
+        <div class="panel-header">
+          <div class="panel-title-group">
+            <h2 class="panel-title" data-i18n="panelInventory">🗄️ Archivio Bobine</h2>
+            <span id="inventory-count-badge" class="badge badge-outline">0</span>
+          </div>
+        </div>
+
+        <div id="inventory-grid" class="inventory-grid">
+          <!-- Populated dynamically with ONLY unmounted spools (slot === 0) -->
+        </div>
+      </section>
+
+      <!-- 3. REGISTRO STAMPE -->
+      <section class="panel">
+        <div class="panel-header">
+          <div class="panel-title-group">
+            <h2 class="panel-title" data-i18n="panelPrints">🧾 Registro Stampe</h2>
+            <span id="prints-count-badge" class="badge badge-outline">0</span>
+          </div>
+          <div class="panel-actions">
+            <div class="filter-pills" id="history-filters">
+              <button type="button" class="filter-pill active" data-hfilter="all" data-i18n="filterAll">Tutte</button>
+              <button type="button" class="filter-pill" data-hfilter="completed" data-i18n="filterCompleted">Completate</button>
+              <button type="button" class="filter-pill" data-hfilter="stopped" data-i18n="filterStopped">Stoppate</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="history-list" class="history-list">
+          <!-- Populated dynamically -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL: EDIT SPOOL (MATERIAL, INITIAL WEIGHT, REMAINING WEIGHT, COLOR) -->
+  <!-- ===================================================================== -->
+  <div id="modal-spool" class="modal-backdrop hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-spool-title" data-i18n="modalSpoolSettings">Impostazioni Bobina</h3>
+        <button type="button" class="modal-close" data-close="modal-spool">✕</button>
+      </div>
+      <form id="form-spool" class="modal-body">
+        <input type="hidden" id="spool-id" />
+        <input type="hidden" id="spool-slot" value="0" />
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="spool-name" data-i18n="labelSpoolName">Nome / Marca Bobina</label>
+            <input type="text" id="spool-name" placeholder="es. Jayo PLA HS" data-i18n-placeholder="placeholderSpoolName" required />
+          </div>
+          <div class="form-group">
+            <label for="spool-material" data-i18n="labelSpoolMaterial">Materiale</label>
+            <select id="spool-material">
+              <option value="PLA">PLA</option>
+              <option value="PLA+">PLA+</option>
+              <option value="PLA HS">PLA HS / Rapid PLA</option>
+              <option value="PLA Matte">PLA Matte</option>
+              <option value="PLA Silk">PLA Silk</option>
+              <option value="PLA-CF">PLA-CF</option>
+              <option value="PETG">PETG</option>
+              <option value="Rapid PETG">Rapid PETG</option>
+              <option value="ABS">ABS</option>
+              <option value="ASA">ASA</option>
+              <option value="TPU">TPU</option>
+              <option value="PA-CF">PA-CF / Nylon</option>
+              <option value="PETG-CF">PETG-CF</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label data-i18n="labelSpoolColor">Colore</label>
+          <div class="color-picker-row">
+            <input type="color" id="spool-color-picker" value="#00d2ff" />
+            <input type="text" id="spool-color-hex" value="#00D2FF" class="mono-input" maxlength="7" />
+            <div class="color-presets">
+              <button type="button" class="color-swatch" data-color="#000000" style="background:#000000"></button>
+              <button type="button" class="color-swatch" data-color="#FFFFFF" style="background:#FFFFFF"></button>
+              <button type="button" class="color-swatch" data-color="#898989" style="background:#898989"></button>
+              <button type="button" class="color-swatch" data-color="#F72221" style="background:#F72221"></button>
+              <button type="button" class="color-swatch" data-color="#FF9500" style="background:#FF9500"></button>
+              <button type="button" class="color-swatch" data-color="#FFCC00" style="background:#FFCC00"></button>
+              <button type="button" class="color-swatch" data-color="#34C759" style="background:#34C759"></button>
+              <button type="button" class="color-swatch" data-color="#00D2FF" style="background:#00D2FF"></button>
+              <button type="button" class="color-swatch" data-color="#007AFF" style="background:#007AFF"></button>
+              <button type="button" class="color-swatch" data-color="#AF52DE" style="background:#AF52DE"></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="weight-box">
+          <div class="form-row-2">
+            <div class="form-group" style="margin-bottom:0">
+              <label for="spool-initial-weight" data-i18n="labelInitialWeight">Peso Bobina Piena (g)</label>
+              <input type="number" id="spool-initial-weight" min="50" max="10000" step="0.1" value="1000" required />
+            </div>
+            <div class="form-group" style="margin-bottom:0">
+              <label for="spool-remaining-weight" data-i18n="labelRemainingWeight">Grammi Attualmente Rimasti (g)</label>
+              <input type="number" id="spool-remaining-weight" min="0" max="10000" step="0.1" value="1000" required />
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-glass" data-close="modal-spool" data-i18n="btnCancel">Annulla</button>
+          <button type="submit" class="btn btn-primary" data-i18n="btnSave">Salva</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL: EDIT PRINT                                                     -->
+  <!-- ===================================================================== -->
+  <div id="modal-print" class="modal-backdrop hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-print-title" data-i18n="modalPrintTitle">Rettifica Stampa</h3>
+        <button type="button" class="modal-close" data-close="modal-print">✕</button>
+      </div>
+      <form id="form-print" class="modal-body">
+        <input type="hidden" id="print-id" />
+
+        <div class="form-group">
+          <label for="print-filename" data-i18n="labelPrintFile">File Stampa</label>
+          <input type="text" id="print-filename" required />
+        </div>
+
+        <div class="form-group">
+          <label for="gcode-file-input" data-i18n="labelGcodeFile">Carica file .gcode locale (opzionale, legge i grammi esatti)</label>
+          <input type="file" id="gcode-file-input" accept=".gcode,.gco,.g" />
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="print-status" data-i18n="labelPrintStatus">Stato</label>
+            <select id="print-status">
+              <option value="1" data-i18n="optCompleted">✅ Completata</option>
+              <option value="3" data-i18n="optStopped">🛑 Stoppata a metà</option>
+              <option value="2" data-i18n="optInterrupted">⚠️ Interrotta</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="print-spool-select" data-i18n="labelSpoolUsed">Bobina Usata</label>
+            <select id="print-spool-select" required></select>
+          </div>
+        </div>
+
+        <div class="weight-box">
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="print-total-grams" data-i18n="labelTotalSlicerGrams">Peso Totale Slicer (g)</label>
+              <input type="number" id="print-total-grams" min="0" max="10000" step="0.1" value="50" required />
+            </div>
+            <div class="form-group">
+              <label for="print-progress-pct" data-i18n="labelCompletionPct">% Completamento</label>
+              <input type="number" id="print-progress-pct" min="1" max="100" step="1" value="100" required />
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label for="print-actual-grams" data-i18n="labelActualGrams">Grammi Effettivamente Consumati (g)</label>
+            <input type="number" id="print-actual-grams" min="0" max="10000" step="0.1" value="50" required />
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-glass" data-close="modal-print" data-i18n="btnCancel">Annulla</button>
+          <button type="submit" class="btn btn-primary" data-i18n="btnSave">Salva</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL: COLLEGA TELEFONO CON CODICE QR                                 -->
+  <!-- ===================================================================== -->
+  <div id="modal-mobile-qr" class="modal-backdrop hidden">
+    <div class="modal-card modal-sm">
+      <div class="modal-header">
+        <h3 data-i18n="modalQrTitle">📱 Collega Telefono</h3>
+        <button type="button" class="modal-close" data-close="modal-mobile-qr">✕</button>
+      </div>
+      <div class="modal-body qr-modal-box">
+        <p id="mobile-qr-caption" class="qr-caption-text" data-i18n="qrCaption">
+          Inquadra il codice QR con la fotocamera dello smartphone per accedere subito alla Web App sincronizzata.
+        </p>
+        <div id="mobile-qr-svg-wrap" class="qr-svg-container"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="qrcode.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

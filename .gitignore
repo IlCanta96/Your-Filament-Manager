@@ -1,0 +1,25 @@
+# Personal local database, Elegoo Slicer pairing & browser profile (NEVER commit)
+data/
+filament_db*.json
+slicer_pairing*.json
+cloud_url.txt
+*.log
+
+# Wrangler / Cloudflare local state & account cache (NEVER commit)
+.wrangler/
+
+# Portable Node.js toolchain & dependencies
+.tools/
+node_modules/
+
+# Environment & secrets
+.env
+.env.*
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+*.user
+*.suo
+*.tmp

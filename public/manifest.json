@@ -1,0 +1,24 @@
+{
+  "name": "Elegoo Centauri Carbon 2 — Filament Tracker",
+  "short_name": "Elegoo CC2",
+  "description": "Gestione bobine, grammi residui e Canvas per Elegoo Centauri Carbon 2",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b0e14",
+  "theme_color": "#0b0e14",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "app.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    }
+  ]
+}
