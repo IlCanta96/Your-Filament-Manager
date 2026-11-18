@@ -1,0 +1,34 @@
+# Personal local database, Elegoo Slicer pairing & browser profile (NEVER commit)
+data/
+filament_db*.json
+slicer_pairing*.json
+cloud_url.txt
+*.log
+
+# Local launcher, publisher & deployment scripts (keep local only)
+Pubblica_Su_GitHub.bat
+publish_github.ps1
+Pubblica_Su_Cloudflare.bat
+deploy_cloudflare.ps1
+Avvia_Elegoo_Filament.bat
+*.bat
+*.ps1
+
+# Wrangler / Cloudflare local state & account cache (NEVER commit)
+.wrangler/
+
+# Portable Node.js toolchain & dependencies
+.tools/
+node_modules/
+
+# Environment & secrets
+.env
+.env.*
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+*.user
+*.suo
+*.tmp

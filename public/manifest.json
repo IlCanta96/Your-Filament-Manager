@@ -1,0 +1,24 @@
+{
+  "name": "Your Filament Manager",
+  "short_name": "Your Filament Manager",
+  "description": "Your Filament Manager — Canvas & Spool Weight Tracker",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b0e14",
+  "theme_color": "#0b0e14",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "app.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+Your Filament Manager
+Copyright (c) 2026 Giulio Cantarelli
+
+This software is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0)
+together with the Commons Clause License Condition v1.0.
+
+================================================================================
+COMMONS CLAUSE LICENSE CONDITION v1.0
+================================================================================
+
+The Software is provided to you by the Licensor under the License, as defined
+below, subject to the following condition.
+
+Without limiting other conditions in the License, the grant of rights under the
+License will not include, and the License does not grant to you, the right to
+Sell the Software.
+
+For purposes of the foregoing, "Sell" means practicing any or all of the rights
+granted to you under the License to provide to third parties, for a fee or other
+consideration (including without limitation fees for hosting or consulting/support
+services related to the Software), a product or service whose value derives,
+entirely or substantially, from the functionality of the Software. Any license
+notice or attribution required by the License must also include this Commons
+Clause License Condition notice.
+
+Software: Your Filament Manager
+License: GNU Affero General Public License v3.0 (AGPL-3.0)
+Licensor / Original Author: Giulio Cantarelli
+Donation / Official Page: https://ko-fi.com/giuliocantarelli
+
+================================================================================
+GNU AFFERO GENERAL PUBLIC LICENSE v3.0 (AGPL-3.0) SUMMARY & REQUIREMENTS
+================================================================================
+
+Subject to the Commons Clause License Condition v1.0 above:
+
+1. Permissions:
+   - You may download, use, copy, and modify this Software for personal and
+     non-commercial purposes.
+
+2. Mandatory Attribution & Share-Alike:
+   - You MUST preserve all copyright notices and clearly credit the original
+     author ("Giulio Cantarelli") in all copies, forks, user interfaces, and
+     substantial portions of the Software.
+   - If you distribute modified versions or run a modified version over a
+     network (such as on Cloudflare Workers), you MUST make the complete
+     corresponding source code publicly available under these exact same terms
+     (GNU AGPL-3.0 + Commons Clause v1.0) and state the changes you made.
+
+3. Prohibition on Commercial Sale:
+   - You MAY NOT sell this Software, repackage and sell it, or offer paid
+     subscriptions / paid hosted services based on this Software.
+
+Full GNU AGPL-3.0 text: https://www.gnu.org/licenses/agpl-3.0.txt
+Full Commons Clause text: https://commonsclause.com/
