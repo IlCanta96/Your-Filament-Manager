@@ -10,6 +10,8 @@
 > **Buy me a coffee / Tip on Ko-fi:** [https://ko-fi.com/giuliocantarelli](https://ko-fi.com/giuliocantarelli) ☕  
 > **3D Models & MakerWorld Profile:** [https://makerworld.com/it/@IlCanta96](https://makerworld.com/it/@IlCanta96) 🧩
 
+![Your Filament Manager Screenshot](./screenshot.jpg)
+
 ---
 
 ## 🇬🇧 English Overview & Setup
